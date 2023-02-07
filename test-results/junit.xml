@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="1" failures="0" errors="0" time="2.576">
+  <testsuite name="handleDualChannelHangupCall" errors="0" failures="0" skipped="0" timestamp="2023-02-06T07:01:42" time="1.381" tests="1">
+    <testcase classname="handleDualChannelHangupCall should call addMissingCallDataIfNeeded" name="handleDualChannelHangupCall should call addMissingCallDataIfNeeded" time="0.001">
+    </testcase>
+  </testsuite>
+</testsuites>
