@@ -1,0 +1,1 @@
+# flex-plugin-library-pause-recording
