@@ -2,7 +2,6 @@ import React from 'react';
 import { EventEmitter } from 'events';
 import { getMockedServiceConfiguration } from '../../src/test-utils/flex-service-configuration';
 import { getMockedReduxState } from '../../src/test-utils/flex-redux';
-
 // We need to mock anything our plugin uses from @twilio/flex-ui here
 
 class WorkerClient extends EventEmitter {
@@ -13,6 +12,7 @@ class WorkerClient extends EventEmitter {
 
     };
     this.reservations = new Map();
+    this.reservations.set('123456','123456');
   }
 }
 
@@ -90,6 +90,13 @@ class Actions {
   }
 }
 
+class TaskHelper{
+  constructor() {}
+
+  isOutboundCallTask = jest.fn();
+  isCallTask = jest.fn().mockReturnValue(1);
+}
+
 class Notifications {
   registeredNotifications = new Map();
 
@@ -117,6 +124,7 @@ module.exports = {
   Actions: new Actions(),
   Manager: new Manager(),
   Notifications: new Notifications(),
+  TaskHelper: new TaskHelper(),
   NotificationType: {
     warning: 'warning',
     error: 'error'

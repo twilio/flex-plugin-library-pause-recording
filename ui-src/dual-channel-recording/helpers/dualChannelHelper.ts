@@ -58,17 +58,17 @@ export const addCallDataToTask = async (task: ITask, callSid: string | null, rec
     };
 
     switch (getChannelToRecord()) {
-      case 'worker':
-        newAttributes = {
-          ...attributes,
-          reservation_attributes: {
-            ...reservationAttributes,
-            [reservationSid]: {
-              media: [mediaObj],
-            }
-          },
-        };
-        break;
+      // case 'worker':
+      //   newAttributes = {
+      //     ...attributes,
+      //     reservation_attributes: {
+      //       ...reservationAttributes,
+      //       [reservationSid]: {
+      //         media: [mediaObj],
+      //       }
+      //     },
+      //   };
+      //   break;
       case 'customer':
         newAttributes.conversations = {
           ...conversations,

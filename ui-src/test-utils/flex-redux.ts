@@ -6,7 +6,7 @@ import { mergeWith, unset } from 'lodash';
 //       So the __mocks__/@twilio/flex-ui.js file will use this variable as value
 //       And tests can use these functions to set value (will automatically get reset after each test)
 let mockedReduxState: AppState = {
-  flex: {} as Flex.AppState,
+  flex: {phone : {activeCall:{parameters:{CallSid:"123"}}}} as unknown as Flex.AppState,
   [reduxNamespace]: {} as AppState[typeof reduxNamespace]
 };
 

@@ -1,7 +1,7 @@
 import * as Flex from '@twilio/flex-ui';
 import { handleDualChannelHangupCall } from './HangupCall'
 import '@testing-library/jest-dom'
-import React from 'react';
+import * as dualChannel from "../../helpers/dualChannelHelper";
 
 jest.mock('../../helpers/dualChannelHelper', ()=>{
   return {
@@ -9,13 +9,23 @@ jest.mock('../../helpers/dualChannelHelper', ()=>{
   }
 }) ;
 
-describe('handleDualChannelHangupCall', () => {
+describe('handleDualChannelCompleteTask', () => {
   let flex: typeof Flex = Flex;
   let manager: Flex.Manager = Flex.Manager.getInstance();
-    it('should call addMissingCallDataIfNeeded', async () => {
-      const addListenerSpy = jest.spyOn(Flex.Actions, 'addListener');
-      handleDualChannelHangupCall(flex, manager);
-      await expect(addListenerSpy).toHaveBeenCalledTimes(1);
-    //   expect(abortFunction).not.toHaveBeenCalled();
+  const actionSpy = jest.spyOn(dualChannel, 'addMissingCallDataIfNeeded');
+  it('should call addMissingCallDataIfNeeded', async () => {
+      //handleDualChannelCompleteTask(flex, manager);
+    const addListenerSpy = jest.spyOn(Flex.Actions, 'addListener');
+
+    await handleDualChannelHangupCall(flex, manager);
+    const payload = {
+      task:{
+      attributes: {conference : '12345'}
+      }
+    }
+    flex.Actions.invokeAction('HangupCall', payload)
+    await expect(addListenerSpy).toHaveBeenCalledTimes(1);
+    expect(actionSpy).toBeCalledWith(payload.task);
+    await expect(actionSpy).toHaveBeenCalled();
     });
 })  
