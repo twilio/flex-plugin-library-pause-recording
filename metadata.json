@@ -1,0 +1,38 @@
+{
+    "name":"flex-plugin-library-pause-recording",
+    "friendly_name" :"Pause Recording Plugin",
+    "description":"This plugins enable the feature to resume/pause the recording of an ongoing call",
+    "support":"abc@gmail.com",
+    "created_by":"Twilio",
+    "twilio_managed":"true",
+    "repo_url" : "https://github.com/twilio/flex-plugin-library-pause-recording",
+    "version_details" : {
+      "version":"1.0.0",
+      "compatible_with":"2.0.0 - 2.0.2",
+      "released_by":"flex-runtime-team",
+      "changelog":"",
+      "prerequisite" : "After installing the plugin, configure the environment file after deploying serverless functions.",
+      "attributes" : [
+      {
+        "name": "TWILIO_ACCOUNT_SID",
+        "data_type": "string",
+        "type":"SERVERLESS",
+        "description" : "Account SID",
+        "help_link" : ""
+      },
+      {
+        "name": "TWILIO_AUTH_TOKEN",
+        "data_type": "string",
+        "type":"SERVERLESS",
+        "description" : "Account auth token",
+        "help_link" : ""
+      },
+      {
+        "name": "TWILIO_WORKSPACE_SID",
+        "data_type": "string",
+        "type":"SERVERLESS",
+        "description" : "workspace sid",
+        "help_link" : ""
+      }]
+    }
+}

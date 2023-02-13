@@ -3,6 +3,7 @@ import { addCallDataToTask, waitForConferenceParticipants, waitForActiveCall } f
 import { FlexEvent } from "../../../types/manager/FlexEvent";
 import RecordingService from "../../../pause-recording/helpers/RecordingService";
 import { isFeatureEnabled, getChannelToRecord } from '../..';
+import { ErrorManager, FlexErrorSeverity, FlexPluginErrorType } from "../../../utils/ErrorManager";
 
 const taskAcceptedHandler = async (task: Flex.ITask, flexEvent: FlexEvent) => {
   if (!Flex.TaskHelper.isCallTask(task)) {
@@ -77,6 +78,7 @@ const taskAcceptedHandler = async (task: Flex.ITask, flexEvent: FlexEvent) => {
   } catch (error) {
     console.error('Unable to start dual channel recording.', error);
   }
+ 
 }
 
 export default taskAcceptedHandler;
