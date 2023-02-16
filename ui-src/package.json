@@ -1,6 +1,6 @@
 {
   "name": "flex-plugin-library-pause-recording",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "test:watch": "jest --watch",
