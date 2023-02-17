@@ -1,5 +1,5 @@
 // your account sid
-var accountSid = 'AC8dbcd5914baded5b6f984d2e4b872f8a';
+var accountSid = '';  //out your account sid here
 var env = 'prod';
 
 function getAppConfig(env) {
