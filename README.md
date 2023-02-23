@@ -104,7 +104,7 @@ and then
 ### Laundry List of activities to be done for each plugin
 
 1. Create individual repo for each plugin
-2. Test the plugin against Felx UI 2.x for compatibility
+2. Test the plugin against Flex UI 2.x for compatibility
 3. Create plugin specific CI/CD files for (actions file for bundle creation, release creation and running unit tests)
 4. UI logs to be replaced with standard ConsoleLogger provided as util in the repo
 5. Unit test for UI code and serverless code
