@@ -78,7 +78,6 @@ and then
 3. Copy `.env.example` to `.env` and set the following variables:
 
    - REACT_APP_SERVICE_BASE_URL: your Twilio Functions base url (this will be available after you deploy your functions). In local development environment, it could be your localhost base url.
-   - REACT_APP_TASK_CHANNEL_SID: the voice channel SID
 
    **Note**: Remember that .env is for front-end use so do not add any type of key/secret variable to them. When developing, the .env.development is used while the .env.production is used when building and deploying the plugin. Also, just variables starting with the name _REACT*APP*_ will work.
 
