@@ -7,7 +7,11 @@ import { mergeWith, unset } from 'lodash';
 //       And tests can use these functions to set value (will automatically get reset after each test)
 let mockedReduxState: AppState = {
   flex: {phone : {activeCall:{parameters:{CallSid:"123"}}}} as unknown as Flex.AppState,
-  [reduxNamespace]: {} as AppState[typeof reduxNamespace]
+  [reduxNamespace]: {
+    pausedRecordings : [
+      {reservationSid : "123"}
+    ],
+  } as AppState[typeof reduxNamespace]
 };
 
 export const getMockedReduxState = () => mockedReduxState;

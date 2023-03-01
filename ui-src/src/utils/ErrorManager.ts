@@ -85,8 +85,9 @@ class ErrorManagerImpl {
         const error = new FlexPluginError(message, content);
         if(pluginType === "dualchannel")
             return this.processErrorDualChannel(error, showNotification);
-        else
+        else{
             return this.processErrorPauseRecording(error, showNotification)
+        }
     }
 }
 

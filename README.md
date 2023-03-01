@@ -1,3 +1,5 @@
+NOTE: This repo is still a WIP (Work In Progress) and the codebase is not yet production ready.
+
 # Pause & Resume Call Recording
 
 This feature adds a Pause/Resume Recording button to the call canvas to allow the agent to temporarily pause the call recording before the customer provides sensitive information (such as credit card details, bank account, etc.) to the agent and to resume regular call recording afterwards.
@@ -25,7 +27,7 @@ Make sure you have [Node.js](https://nodejs.org) as well as [`npm`](https://npmj
 Afterwards, install the dependencies by running `npm install`:
 
 ```bash
-cd
+cd ui-src
 
 # If you use npm
 npm install

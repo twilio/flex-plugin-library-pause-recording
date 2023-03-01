@@ -37,7 +37,7 @@ describe('Create Recording', () => {
     );
 
   });
-  it.only('create recording is called successfully ', async () => {
+  it('create recording is called successfully ', async () => {
     const createRecording = require('../../../functions/pause-recording/pause-conference-recording');
     const handlerFn = createRecording.handler;
     const mockContext = {
