@@ -2,7 +2,7 @@
     "name":"flex-plugin-library-pause-recording",
     "friendly_name" :"Pause Recording Plugin",
     "description":"This plugins enable the feature to resume/pause the recording of an ongoing call",
-    "support":"abc@gmail.com",
+    "support":"flex-runtime-support@twilio.com",
     "created_by":"Twilio",
     "twilio_managed":"true",
     "repo_url" : "https://github.com/twilio/flex-plugin-library-pause-recording",
