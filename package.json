@@ -17,6 +17,7 @@
     "twilio-flex-token-validator": "^1.5.4"
   },
   "devDependencies": {
+    "@twilio-paste/core": "^17.0.1",
     "@babel/preset-env": "7.20.2",
     "@babel/preset-modules": "0.1.5",
     "@babel/preset-react": "7.18.6",
