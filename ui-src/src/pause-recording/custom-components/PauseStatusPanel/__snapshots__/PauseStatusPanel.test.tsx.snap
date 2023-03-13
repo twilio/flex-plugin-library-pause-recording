@@ -1,7 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[` 1`] = `[Function]`;
-
 exports[`Pause Status Button should render correct snapshot 1`] = `
 Object {
   "asFragment": [Function],

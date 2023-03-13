@@ -8,35 +8,36 @@ import { isFeatureEnabled as isDualChannelEnabled, getChannelToRecord } from '..
 
 const manager = Manager.getInstance();
 
-const getDualChannelCallSid = (task: ITask): string | null => {
-  const participants = task.conference?.participants;
+// since dual channel enabled will always be true commenting this function
+// const getDualChannelCallSid = (task: ITask): string | null => {
+//   const participants = task.conference?.participants;
   
-  if (!participants) {
-    return null;
-  }
+//   if (!participants) {
+//     return null;
+//   }
   
-  let participantLeg;
-  switch (getChannelToRecord()) {
-    case 'customer': {
-      participantLeg = participants.find(
-        (p) => p.participantType === 'customer'
-      );
-      break;
-    }
-    case 'worker': {
-      participantLeg = participants.find(
-        (p) => p.participantType === 'worker' && p.isCurrentWorker
-      );
-      break;
-    }
-  }
+//   let participantLeg;
+//   switch (getChannelToRecord()) {
+//     case 'customer': {
+//       participantLeg = participants.find(
+//         (p) => p.participantType === 'customer'
+//       );
+//       break;
+//     }
+//     case 'worker': {
+//       participantLeg = participants.find(
+//         (p) => p.participantType === 'worker' && p.isCurrentWorker
+//       );
+//       break;
+//     }
+//   }
   
-  if (!participantLeg || !participantLeg.callSid) {
-    return null;
-  }
+//   if (!participantLeg || !participantLeg.callSid) {
+//     return null;
+//   }
   
-  return participantLeg.callSid;
-}
+//   return participantLeg.callSid;
+// }
 export const pauseRecording = async (task: ITask): Promise<boolean> => {
   const state = manager.store.getState() as AppState;
   console.log("Checking pauseRecording ReduxNamespace methods ----------------");
@@ -53,14 +54,14 @@ export const pauseRecording = async (task: ITask): Promise<boolean> => {
     
     if (!isDualChannelEnabled()) {
       // Dual channel records a call SID rather than a conference SID
-      const callSid = getDualChannelCallSid(task);
+      // const callSid = getDualChannelCallSid(task);
       
-      if (callSid) {
-        const recording = await RecordingService.pauseCallRecording(callSid, isIncludeSilenceEnabled() ? "silence" : "skip");
-        recordingSid = recording.sid;
-      } else {
-        console.error('Unable to get call SID to pause recording');
-      }
+      // if (callSid) {
+      //   const recording = await RecordingService.pauseCallRecording(callSid, isIncludeSilenceEnabled() ? "silence" : "skip");
+      //   recordingSid = recording.sid;
+      // } else {
+      //   console.error('Unable to get call SID to pause recording');
+      // }
     } else if (task.conference) {
       const recording = await RecordingService.pauseConferenceRecording(task.conference?.conferenceSid, isIncludeSilenceEnabled() ? "silence" : "skip");
       recordingSid = recording.sid;
@@ -96,14 +97,14 @@ export const resumeRecording = async (task: ITask): Promise<boolean> => {
     let success = false;
     if (!isDualChannelEnabled()) {
       // Dual channel records a call SID rather than a conference SID
-      const callSid = getDualChannelCallSid(task);
+      // const callSid = getDualChannelCallSid(task);
       
-      if (callSid) {
-        await RecordingService.resumeCallRecording(callSid, recording.recordingSid);
-        success = true;
-      } else {
-        console.error('Unable to get call SID to resume recording');
-      }
+      // if (callSid) {
+      //   await RecordingService.resumeCallRecording(callSid, recording.recordingSid);
+      //   success = true;
+      // } else {
+      //   console.error('Unable to get call SID to resume recording');
+      // }
     } else if (task.conference) {
       await RecordingService.resumeConferenceRecording(task.conference?.conferenceSid, recording.recordingSid);
       success = true;
