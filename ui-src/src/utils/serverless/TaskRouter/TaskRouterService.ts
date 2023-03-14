@@ -113,7 +113,7 @@ class TaskRouterService extends ApiService {
     };
 
     return this.fetchJsonWithReject<UpdateTaskAttributesResponse>(
-      `${this.serverlessProtocol}://${this.serverlessDomain}/common/flex/taskrouter/update-task-assignment-status`,
+      `${this.serverlessDomain}/common/flex/taskrouter/update-task-assignment-status`,
       {
         method: "post",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -137,7 +137,7 @@ class TaskRouterService extends ApiService {
     };
 
     return this.fetchJsonWithReject<UpdateTaskAttributesResponse>(
-      `${this.serverlessProtocol}://${this.serverlessDomain}/common/flex/taskrouter/update-task-attributes`,
+      `${this.serverlessDomain}/common/flex/taskrouter/update-task-attributes`,
       {
         method: "post",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -156,7 +156,7 @@ class TaskRouterService extends ApiService {
     };
 
     return this.fetchJsonWithReject<GetQueuesResponse>(
-      `${this.serverlessProtocol}://${this.serverlessDomain}/common/flex/taskrouter/get-queues`,
+      `${this.serverlessDomain}/common/flex/taskrouter/get-queues`,
       {
         method: "post",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -174,7 +174,7 @@ class TaskRouterService extends ApiService {
     };
   
     return this.fetchJsonWithReject<GetWorkerChannelsResponse>(
-      `${this.serverlessProtocol}://${this.serverlessDomain}/common/flex/taskrouter/get-worker-channels`,
+      `${this.serverlessDomain}/common/flex/taskrouter/get-worker-channels`,
       {
         method: "post",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -200,7 +200,7 @@ class TaskRouterService extends ApiService {
     };
 
     return this.fetchJsonWithReject<UpdateWorkerChannelResponse>(
-      `${this.serverlessProtocol}://${this.serverlessDomain}/common/flex/taskrouter/update-worker-channel`,
+      `${this.serverlessDomain}/common/flex/taskrouter/update-worker-channel`,
       {
         method: "post",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },

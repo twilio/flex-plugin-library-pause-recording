@@ -42,7 +42,7 @@ class PhoneNumberService extends ApiService {
     };
 
     return this.fetchJsonWithReject<ListPhoneNumbersResponse>(
-      `${this.serverlessProtocol}://${this.serverlessDomain}/common/flex/phone-numbers/list-phone-numbers`,
+      `${this.serverlessDomain}/common/flex/phone-numbers/list-phone-numbers`,
       {
         method: "post",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
