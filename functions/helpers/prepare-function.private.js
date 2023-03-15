@@ -2,7 +2,6 @@ const TokenValidator = require('twilio-flex-token-validator').functionValidator;
 const ParameterValidator = require(Runtime.getFunctions()['helpers/parameter-validator'].path);
 
 exports.prepareFunction = (context, event, callback, requiredParameters, handlerFn) => {
-exports.prepareFunction = (context, event, callback, requiredParameters, handlerFn) => {
   const response = new Twilio.Response();
   const parameterError = ParameterValidator.validate(
     context.PATH,
