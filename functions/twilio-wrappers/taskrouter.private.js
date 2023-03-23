@@ -16,7 +16,7 @@ const retryHandler = require(Runtime.getFunctions()[
  * more explained here https://www.twilio.com/docs/taskrouter/api/task#task-version
  */
 exports.updateTaskAttributes = async function updateTaskAttributes(parameters) {
-  const { attempts, taskSid, attributesUpdate } = parameters;
+  const { attempts, taskSid, attributesUpdate, context } = parameters;
 
   if (!isNumber(attempts))
     throw "Invalid parameters object passed. Parameters must contain the number of attempts";
@@ -28,8 +28,9 @@ exports.updateTaskAttributes = async function updateTaskAttributes(parameters) {
   try {
     const axios = require("axios");
 
-    const taskContextURL = `https://taskrouter.twilio.com/v1/Workspaces/${process.env.TWILIO_FLEX_WORKSPACE_SID}/Tasks/${taskSid}`;
-    let config = {
+    const region = context.TWILIO_REGION ? context.TWILIO_REGION.split('-')[0] : '';
+    const hostName = region ? `https://taskrouter.${region}.twilio.com` : "https://taskrouter.twilio.com";
+    const taskContextURL = `${hostName}/v1/Workspaces/${process.env.TWILIO_FLEX_WORKSPACE_SID}/Tasks/${taskSid}`;    let config = {
       auth: {
         username: process.env.ACCOUNT_SID,
         password: process.env.AUTH_TOKEN,
@@ -42,7 +43,6 @@ exports.updateTaskAttributes = async function updateTaskAttributes(parameters) {
     let task = getResponse.data;
     task.attributes = JSON.parse(getResponse.data.attributes);
     task.revision = JSON.parse(getResponse.headers.etag);
-
     // merge the objects
     let updatedTaskAttributes = omitBy(merge(
       {},
@@ -57,10 +57,9 @@ exports.updateTaskAttributes = async function updateTaskAttributes(parameters) {
       "content-type": "application/x-www-form-urlencoded",
     };
 
-    data = new URLSearchParams({
+    const data = new URLSearchParams({
       Attributes: JSON.stringify(updatedTaskAttributes),
     });
-
     task = (await axios.post(taskContextURL, data, config)).data;
 
     return {
