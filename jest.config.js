@@ -25,6 +25,7 @@ module.exports = {
       '/strings',
       '/utils',
       '/build',
+      './functions/setup\\.js',
     ],
     coverageReporters: ['json', 'lcov', 'text', 'clover', 'cobertura'],
     testResultsProcessor: 'jest-junit',
