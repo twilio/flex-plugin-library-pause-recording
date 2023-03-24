@@ -3,8 +3,8 @@ import { NotificationType } from '@twilio/flex-ui';
 import { StringTemplates } from '../strings/PauseRecording';
 
 export enum NotificationIds {
-  RECORDING_PAUSED = 'PSRecordingPaused',
-  RESUME_RECORDING = 'PSResumeRecording',
+  RECORDING_PAUSED = 'Call recording is paused.',
+  RESUME_RECORDING = 'Call recording resumed.',
   PAUSE_FAILED = 'PSPauseFailed',
   RESUME_FAILED = 'PSResumeFailed',
 }
