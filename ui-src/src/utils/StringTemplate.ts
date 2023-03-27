@@ -1,9 +1,9 @@
 // Export the template names as an enum for better maintainability when accessing them elsewhere
 export enum StringTemplates {
     DualChannelBroken = 'PSDualChannelBroken',
-    RECORDING_PAUSED = 'PSRecordingPaused',
+    RECORDING_PAUSED = 'Call recording is paused.',
     RECORDING_PAUSED_LABEL = 'PSRecordingPausedLabel',
-    RESUME_RECORDING = 'PSResumeRecording',
+    RESUME_RECORDING = 'Call recording resumed.',
     PAUSE_FAILED = 'PSPauseRecordingFailed',
     RESUME_FAILED = 'PSResumeRecordingFailed',
     PAUSE_TOOLTIP = 'PSPauseRecordingTooltip',
