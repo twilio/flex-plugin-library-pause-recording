@@ -11,7 +11,7 @@
       "compatible_with":"2.0.0 - 2.0.2",
       "released_by":"flex-runtime-team",
       "changelog":"",
-      "prerequisite" : "After installing the plugin, configure the environment file after deploying serverless functions.",
+      "prerequisite" : "Dialpad Addon should be enabled for the Flex account before this plugin and also Call Recordings should be enable in Twilio voice.",
       "attributes" : [
       {
         "name": "TWILIO_ACCOUNT_SID",
