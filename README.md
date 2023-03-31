@@ -1,6 +1,3 @@
-NOTE: This repo is still a WIP (Work In Progress) and the codebase is not yet production ready.
-
-
 # Pause & Resume Call Recording
 
 This feature adds a Pause/Resume Recording button to the call canvas to allow the agent to temporarily pause the call recording before the customer provides sensitive information (such as credit card details, bank account, etc.) to the agent and to resume regular call recording afterwards.
@@ -13,11 +10,11 @@ This plugin uses Twilio Functions to allow user to pause or resume the call reco
 
 # flex-user-experience
 
-![Pause recording demo](screenshots/pause-recording.gif)
+![Pause recording demo](screenshots/1.gif)
 
 # setup and dependencies
 
-Recording must be enabled either via the dual channel recording feature in this repository, or via the "Call Recording" setting in Twilio Console > Flex > Manage > Voice. Do not enable both recording methods simultaneously, or only one of the recordings will be paused.
+Recording must be enabled either via the dual channel recording feature in this repository, or via the "Call Recording" setting in Twilio Console > Flex > Manage > Voice.
 
 There are no additional setup steps required.
 
@@ -32,15 +29,21 @@ Make sure you have [Node.js](https://nodejs.org) as well as [`npm`](https://npmj
 Afterwards, install the dependencies by running `npm install`:
 
 ```bash
-cd
-
 # If you use npm
 npm install
 ```
 
 ### Development
 
-In order to develop locally, you can use the Twilio CLI to run the plugin locally. Using your commandline run the following from the root dirctory of the plugin.
+In order to develop locally, you need to configure appconfig to do that.
+
+```bash
+cp ui-src/public/appConfig.example.js ui-src/public/appConfig.js
+```
+
+Add the environment and your account to setup appconfi.
+
+After that you can use the Twilio CLI to run the plugin locally. Using your commandline run the following from the root dirctory of the plugin.
 
 ```bash
 twilio flex:plugins:start
@@ -49,24 +52,6 @@ twilio flex:plugins:start
 This will automatically start up the Webpack Dev Server and open the browser for you. Your app will run on `http://localhost:3000`.
 
 When you make changes to your code, the browser window will be automatically refreshed.
-
-### Deploy
-
-#### Plugin Deployment
-
-Once you are happy with your plugin, you have to deploy then release the plugin for it to take affect on Twilio hosted Flex.
-
-Run the following command to start the deployment:
-
-```bash
-twilio flex:plugins:deploy --major --changelog "Notes for this version" --description "Functionality of the plugin"
-```
-
-After your deployment runs you will receive instructions for releasing your plugin from the bash prompt. You can use this or skip this step and release your plugin from the Flex plugin dashboard here https://flex.twilio.com/admin/plugins
-
-For more details on deploying your plugin, refer to the [deploying your plugin guide](https://www.twilio.com/docs/flex/plugins#deploying-your-plugin).
-
-Note: Common packages like `React`, `ReactDOM`, `Redux` and `ReactRedux` are not bundled with the build because they are treated as external dependencies so the plugin will depend on Flex to provide them globally.
 
 ## Twilio Serverless
 
@@ -101,7 +86,7 @@ AUTH_TOKEN=
 TWILIO_WORKSPACE_SID=
 ```
 
-6.  cd into ./serverless/ then run
+6.  cd into ./functions/ then run
 
 `npm install`
 
@@ -110,6 +95,19 @@ and then
 `twilio serverless:deploy`
 
 (optionally you can run locally with `twilio serverless:start --ngrok=""`)
+
+After successfull deployment you should see at least the following:
+```bash
+✔ Serverless project successfully deployed
+Functions:
+   https://<your base url>/call-recording/create-recording
+   https://<your base url>/call-recording/list-recordings
+   https://<your base url>/call-recording/pause-recording
+   https://<your base url>/call-recording/resume-recording
+```
+
+Your functions will now be present in the Twilio Functions Console and part of the "pause-recording" service. Copy the URL from one of the functions and paste it in .env file in ui-src directory.
+
 
 ### Laundry List of activities to be done for each plugin
 
