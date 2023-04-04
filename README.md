@@ -6,8 +6,6 @@ This feature adds a Pause/Resume Recording button to the call canvas to allow th
 
 This plugin uses Twilio Functions to allow user to pause or resume the call recording by calling utilizing the dual channel recording feature which is also an another twilio function.
 
-
-
 # flex-user-experience
 
 ![Pause recording demo](screenshots/1.gif)
