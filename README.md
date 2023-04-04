@@ -6,8 +6,6 @@ This feature adds a Pause/Resume Recording button to the call canvas to allow th
 
 This plugin uses Twilio Functions to allow user to pause or resume the call recording by calling utilizing the dual channel recording feature which is also an another twilio function.
 
-
-
 # flex-user-experience
 
 ![Pause recording demo](screenshots/1.gif)
@@ -95,7 +93,7 @@ and then
 `twilio serverless:deploy`
 
 (optionally you can run locally with `twilio serverless:start --ngrok=""`)
-
+ 
 After successfull deployment you should see at least the following:
 ```bash
 ✔ Serverless project successfully deployed
