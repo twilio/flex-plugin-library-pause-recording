@@ -1,7 +1,18 @@
 ## Details
 
-### Overview
+### Prerequisites
+Call Recording should be enabled in voice configuration for this plugin to work. Please refer to the screenshot below. Visit [Twilio Console](https://console.stage.twilio.com/us1/develop/flex/manage/voice) to set up the voice configuration.
 
-This plugin uses Twilio Functions to create a button which enables the user/agent to pause/resume recording of a ongoing call.
+![Enable Recording Help](https://raw.githubusercontent.com/twilio/flex-plugin-library-pause-recording/main/screenshots/recording_help.png)
 
-When in a call, a "speaker with cross infront of it" icon is added to the Call Canvas where you can pause/resume the recording of the current ongoing call. This action executes a Twilio Function that uses the Twilio API to pause/resume the recording of the call. In the Flex UI side, a notification is poped up which shows the current call is paused/ current call recording is failed and the button is highlighted.
+### How it works
+Plugin is ready to use once it is installed and the browser window is refreshed.
+- A Pause call recording button is added to the call canvas during an active call.
+- Clicking the pause button stops call recording while the caller may be providing sensitive information such as financial details.
+- Agent can toggle the button to resume call recording.
+
+### Installation
+During installation, only one field is required:
+*TaskRouter Workspace SID*: This is the SID of the "Flex Task Assignment" workspace that you see in [Twilio Console > TaskRouter > Workspaces](https://console.stage.twilio.com/us1/develop/taskrouter/workspaces). Please refer screenshot below:
+
+![Workspace SID Example](https://raw.githubusercontent.com/twilio/flex-plugin-library-pause-recording/main/screenshots/taskrouter.png)
