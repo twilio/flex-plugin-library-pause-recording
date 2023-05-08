@@ -1,6 +1,7 @@
 {
   "name": "flex-plugin-library-pause-recording",
   "version": "1.0.0",
+  "id": "plibo-call-recording-pause-and-resume",
   "private": true,
   "scripts": {
     "test:watch": "jest --watch",
