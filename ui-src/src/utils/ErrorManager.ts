@@ -1,8 +1,12 @@
 import * as Flex from "@twilio/flex-ui";
+import packageJSON from '../../package.json';
 import { pause } from "pause-recording/flex-hooks/states/PauseRecordingSlice";
 import  dualChannelBroken from '../dual-channel-recording/flex-hooks/notifications/DualChannelRecording'
 import * as pauseRecording from '../pause-recording/flex-hooks/notifications/PauseRecording'
 import {NotificationIds} from './NotificationManager'
+
+const flexManager = window?.Twilio?.Flex?.Manager?.getInstance();
+
 export enum FlexPluginErrorType {
     action = "ActionFramework",
     serverless = "Serverless",
@@ -48,6 +52,14 @@ class ErrorManagerImpl {
     public processErrorDualChannel(error: FlexPluginError, showNotification: boolean): FlexPluginError {
         try {
             console.log(`Pause Recording Plugin: ${error}\nType: ${error.content.type}\nContext:${error.content.context}`);
+            const pluginError = new Flex.FlexError(error.message, {
+                plugin: { name: packageJSON.name, version: packageJSON.version },
+                description: error.content.description,
+              });
+              if (flexManager?.reportErrorEvent) {
+                flexManager.reportErrorEvent(pluginError);
+              }
+              
             if (showNotification) {
                 Flex.Notifications.showNotification(
                     NotificationIds.DualChannelBroken,
@@ -66,6 +78,14 @@ class ErrorManagerImpl {
     public processErrorPauseRecording(error: FlexPluginError, showNotification: boolean): FlexPluginError {
         try {
             console.log(`Pause Recording Plugin: ${error}\nType: ${error.content.type}\nContext:${error.content.context}`);
+            const pluginError = new Flex.FlexError(error.message, {
+                plugin: { name: packageJSON.name, version: packageJSON.version },
+                description: error.content.description,
+              });
+              if (flexManager?.reportErrorEvent) {
+                flexManager.reportErrorEvent(pluginError);
+              }
+              
             if (showNotification) {
                 Flex.Notifications.showNotification(
                     NotificationIds.PAUSE_FAILED,

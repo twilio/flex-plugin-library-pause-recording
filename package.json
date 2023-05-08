@@ -28,7 +28,7 @@
     "@emotion/jest": "^11.10.5",
     "@testing-library/jest-dom": "5.16.5",
     "@testing-library/react": "12.1.5",
-    "@twilio/flex-ui": "2.0.2",
+    "@twilio/flex-ui": "2.1.1",
     "@types/jest": "^26.0.24",
     "@types/lodash": "4.14.182",
     "jest": "^26.0.20",
