@@ -1,6 +1,7 @@
 {
   "name": "flex-plugin-library-pause-recording",
   "version": "1.0.0",
+  "id": "plibo-call-recording-pause-and-resume",
   "private": true,
   "scripts": {
     "test:watch": "jest --watch",
@@ -41,7 +42,7 @@
     "@babel/plugin-proposal-class-properties": "^7.12.1",
     "@babel/plugin-proposal-private-methods": "^7.12.1",
     "@babel/preset-typescript": "^7.12.1",
-    "@twilio/flex-ui": "^2",
+    "@twilio/flex-ui": "2.1.1",
     "@types/luxon": "^3.1.0",
     "@types/react-redux": "^7.1.1",
     "@types/uuid": "^8.3.4",
