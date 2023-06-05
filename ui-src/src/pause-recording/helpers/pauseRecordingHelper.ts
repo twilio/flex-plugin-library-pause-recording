@@ -4,7 +4,9 @@ import { NotificationIds } from "../flex-hooks/notifications/PauseRecording";
 import { AppState, reduxNamespace } from "../flex-hooks/states/PauseRecordingSlice";
 import { pause, resume } from "../flex-hooks/states/PauseRecordingSlice";
 import { isBannerIndicatorEnabled, isIncludeSilenceEnabled } from '..';
-import { isFeatureEnabled as isDualChannelEnabled, getChannelToRecord } from '../../dual-channel-recording';
+import { isFeatureEnabled as isDualChannelEnabled } from '../../dual-channel-recording';
+import Analytics, { Event } from '../../utils/Analytics';
+
 
 const manager = Manager.getInstance();
 
@@ -68,6 +70,9 @@ export const pauseRecording = async (task: ITask): Promise<boolean> => {
     }
     
     if (recordingSid) {
+      Analytics.track(Event.CALL_RECORDING_PAUSED, {
+        conferenceSid: task?.conference?.conferenceSid,
+      });
       manager.store.dispatch(pause({
         reservationSid: task.sid,
         recordingSid
@@ -111,6 +116,9 @@ export const resumeRecording = async (task: ITask): Promise<boolean> => {
     }
     
     if (success) {
+      Analytics.track(Event.CALL_RECORDING_RESUMED, {
+        conferenceSid: task?.conference?.conferenceSid,
+      });
       manager.store.dispatch(resume(recordingIndex));
       if (isBannerIndicatorEnabled()) Notifications.showNotification(NotificationIds.RESUME_RECORDING);
       return true;
