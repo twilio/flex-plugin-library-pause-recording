@@ -10,7 +10,7 @@ describe("Analytics", () => {
     accountSid: "",
     flexUiVersion: "2.1.1",
     originalPluginName: "plibo-call-recording-pause-and-resume",
-    plugin: "flex-plugin-library-pause-recording",
+    plugin: "plibo-call-recording-pause-and-resume",
     pluginVersion: "1.0.0",
     product: "Flex",
     workerSid: "",
