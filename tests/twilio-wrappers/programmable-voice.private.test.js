@@ -1,4 +1,4 @@
-import helpers from '../../test-utils/test-helper';
+import helpers from '../test-utils/test-helper';
 const callSid = 'CSxxxxxxx';
 const recordingSid = '123456';
 const conferenceSid = '123';

@@ -1,7 +1,7 @@
 import React from 'react';
 import { EventEmitter } from 'events';
-import { getMockedServiceConfiguration } from '../../ui-src/src/test-utils/flex-service-configuration';
-import { getMockedReduxState } from '../../ui-src/src/test-utils/flex-redux';
+import { getMockedServiceConfiguration } from '../../test-utils/flex-service-configuration';
+import { getMockedReduxState } from '../../test-utils/flex-redux';
 
 // We need to mock anything our plugin uses from @twilio/flex-ui here
 
