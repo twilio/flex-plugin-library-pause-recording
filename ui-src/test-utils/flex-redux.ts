@@ -1,5 +1,5 @@
 import * as Flex from '@twilio/flex-ui';
-import { AppState, reduxNamespace } from '../pause-recording/flex-hooks/states/PauseRecordingSlice';
+import { AppState, reduxNamespace } from '../src/pause-recording/flex-hooks/states/PauseRecordingSlice';
 import { mergeWith, unset } from 'lodash';
 
 // NOTE: Not sure a great way to "set" the Flex redux store value

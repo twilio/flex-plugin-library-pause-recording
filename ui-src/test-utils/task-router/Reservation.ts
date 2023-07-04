@@ -1,5 +1,5 @@
 import { EventEmitter } from 'events';
-import { Task } from '../../types/task-router';
+import { Task } from '../../src/types/task-router';
 
 export default class Reservation extends EventEmitter {
   sid: string;

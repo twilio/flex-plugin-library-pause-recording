@@ -1,4 +1,4 @@
-import helpers from '../../test-utils/test-helper';
+import helpers from '../test-utils/test-helper';
 import axios from 'axios';
 
 describe('taskrouter.updateTaskAttributes', () => {

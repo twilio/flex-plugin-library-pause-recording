@@ -1,4 +1,4 @@
-import helpers from '../../test-utils/test-helper';
+import helpers from '../test-utils/test-helper';
 
 jest.mock('../../functions/helpers/prepare-function.private.js', () => ({
   __esModule: true,
