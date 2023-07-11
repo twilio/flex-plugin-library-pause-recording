@@ -1,5 +1,5 @@
-import ApiService from "../ApiService";
-import { EncodedParams } from "../../../types/serverless";
+import ApiService from '../ApiService';
+import { EncodedParams } from '../../../types/serverless';
 
 export interface Queue {
   targetWorkers: string;
@@ -42,25 +42,16 @@ interface UpdateWorkerChannelResponse {
   workerChannelCapacity: WorkerChannelCapacityResponse;
 }
 
-let queues = null as null | Array<Queue>;
+const queues = null as null | Array<Queue>;
 
 class TaskRouterService extends ApiService {
-  async updateTaskAttributes(
-    taskSid: string,
-    attributesUpdate: object
-  ): Promise<Boolean> {
-    const result = await this.#updateTaskAttributes(
-      taskSid,
-      JSON.stringify(attributesUpdate)
-    );
+  async updateTaskAttributes(taskSid: string, attributesUpdate: object): Promise<boolean> {
+    const result = await this.#updateTaskAttributes(taskSid, JSON.stringify(attributesUpdate));
 
     return result.success;
   }
 
-  #updateTaskAttributes = (
-    taskSid: string,
-    attributesUpdate: string
-  ): Promise<UpdateTaskAttributesResponse> => {
+  #updateTaskAttributes = (taskSid: string, attributesUpdate: string): Promise<UpdateTaskAttributesResponse> => {
     const encodedParams: EncodedParams = {
       Token: encodeURIComponent(this.manager.user.token),
       taskSid: encodeURIComponent(taskSid),
@@ -70,10 +61,10 @@ class TaskRouterService extends ApiService {
     return this.fetchJsonWithReject<UpdateTaskAttributesResponse>(
       `${this.serverlessDomain}/taskrouter/update-task-attributes`,
       {
-        method: "post",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        method: 'post',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: this.buildBody(encodedParams),
-      }
+      },
     ).then((response): UpdateTaskAttributesResponse => {
       return {
         ...response,

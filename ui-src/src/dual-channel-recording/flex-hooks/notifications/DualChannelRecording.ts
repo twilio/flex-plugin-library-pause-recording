@@ -3,7 +3,7 @@ import { NotificationType } from '@twilio/flex-ui';
 import { StringTemplates } from '../strings/DualChannelRecording';
 
 export enum NotificationIds {
-  DualChannelBroken = 'PSDualChannelBroken'
+  DualChannelBroken = 'PSDualChannelBroken',
 }
 
 export default (flex: typeof Flex, manager: Flex.Manager) => {

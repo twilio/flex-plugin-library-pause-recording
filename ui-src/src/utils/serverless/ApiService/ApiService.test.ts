@@ -78,6 +78,5 @@ describe('utils/common/ApiService', () => {
         expect(fetchSpy).toHaveBeenCalledTimes(11);
       }
     });
-    
   });
 });

@@ -9,4 +9,4 @@ export default (flex: typeof Flex, manager: Flex.Manager) => {
   }
 
   manager.store.addReducer(reduxNamespace, reducers);
-}
+};

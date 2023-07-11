@@ -1,5 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit'
-import type { PayloadAction } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit';
+import type { PayloadAction } from '@reduxjs/toolkit';
 import { PausedRecording } from '../../types/PausedRecording';
 
 import * as Flex from '@twilio/flex-ui';
@@ -9,7 +9,7 @@ export interface PauseRecordingState {
   pausedRecordings: Array<PausedRecording>;
 }
 
-const initialState = { pausedRecordings: [] } as PauseRecordingState
+const initialState = { pausedRecordings: [] } as PauseRecordingState;
 
 const pauseRecordingSlice = createSlice({
   name: 'PauseRecording12',
@@ -22,13 +22,12 @@ const pauseRecordingSlice = createSlice({
       state.pausedRecordings.splice(action.payload, 1);
     },
   },
-})
+});
 
 export const { pause, resume } = pauseRecordingSlice.actions;
 
-
 // Register your redux store under a unique namespace
-export const reduxNamespace = "PauseRecording12";
+export const reduxNamespace = 'PauseRecording12';
 
 // Extend this payload to be of type that your ReduxAction is
 // Normally you'd follow this pattern...https://redux.js.org/recipes/usage-with-typescript#a-practical-example
@@ -45,4 +44,3 @@ export interface AppState {
 //export default combineReducers({ PauseRecording: pauseRecordingSlice.reducer });
 
 export default pauseRecordingSlice.reducer;
-

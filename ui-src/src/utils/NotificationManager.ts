@@ -12,7 +12,6 @@ export default (flex: typeof Flex, manager: Flex.Manager) => {
   dualChannelBroken(flex, manager);
   pauseRecordingFailed(flex, manager);
   resumeRecordingFailed(flex, manager);
-
 };
 
 function dualChannelBroken(flex: typeof Flex, manager: Flex.Manager) {
@@ -25,24 +24,22 @@ function dualChannelBroken(flex: typeof Flex, manager: Flex.Manager) {
   });
 }
 
+function pauseRecordingFailed(flex: typeof Flex, manager: Flex.Manager) {
+  flex.Notifications.registerNotification({
+    id: NotificationIds.PAUSE_FAILED,
+    closeButton: true,
+    content: StringTemplates.PAUSE_FAILED,
+    type: NotificationType?.error,
+    timeout: 3000,
+  });
+}
 
-function pauseRecordingFailed (flex: typeof Flex, manager: Flex.Manager) {
-    flex.Notifications.registerNotification({
-        id: NotificationIds.PAUSE_FAILED,
-        closeButton: true,
-        content: StringTemplates.PAUSE_FAILED,
-        type: NotificationType?.error,
-        timeout: 3000
-      });
+function resumeRecordingFailed(flex: typeof Flex, manager: Flex.Manager) {
+  flex.Notifications.registerNotification({
+    id: NotificationIds.RESUME_FAILED,
+    closeButton: true,
+    content: StringTemplates.RESUME_FAILED,
+    type: NotificationType?.error,
+    timeout: 3000,
+  });
 }
-   
-function resumeRecordingFailed (flex: typeof Flex, manager: Flex.Manager) {
-    flex.Notifications.registerNotification({
-        id: NotificationIds.RESUME_FAILED,
-        closeButton: true,
-        content: StringTemplates.RESUME_FAILED,
-        type: NotificationType?.error,
-        timeout: 3000
-      });
-}
-    
