@@ -4,10 +4,12 @@ import { ErrorManager, FlexErrorSeverity, FlexPluginErrorType } from '../../../u
 
 export function handleDualChannelHangupCall(flex: typeof Flex, manager: Flex.Manager) {
   try {
-    flex.Actions.addListener('beforeHangupCall', async (payload) => {
+    flex.Actions.addListener('beforeHangupCall', (payload) => {
       // Listening for this event to at least capture the conference SID
       // if the outbound call is canceled before the called party answers
-      addMissingCallDataIfNeeded(payload.task);
+      (async () => {
+        addMissingCallDataIfNeeded(payload.task);
+      })();
     });
   } catch (e) {
     ErrorManager.createAndProcessError(

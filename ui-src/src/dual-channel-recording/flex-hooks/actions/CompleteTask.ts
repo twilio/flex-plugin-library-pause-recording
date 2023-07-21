@@ -4,10 +4,12 @@ import { ErrorManager, FlexErrorSeverity, FlexPluginErrorType } from '../../../u
 
 export function handleDualChannelCompleteTask(flex: typeof Flex, manager: Flex.Manager) {
   try {
-    flex.Actions.addListener('beforeCompleteTask', async (payload) => {
+    flex.Actions.addListener('beforeCompleteTask', (payload) => {
       // Listening for this event as a last resort check to ensure call
       // and conference metadata are captured on the task
-      addMissingCallDataIfNeeded(payload.task);
+      (async () => {
+        addMissingCallDataIfNeeded(payload.task);
+      })();
     });
   } catch (e) {
     ErrorManager.createAndProcessError(
