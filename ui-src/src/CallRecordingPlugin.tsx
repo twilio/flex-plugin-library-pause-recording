@@ -32,18 +32,18 @@ export default class CallRecordingPlugin extends FlexPlugin {
    */
   init(flex: typeof Flex, manager: Flex.Manager) {
     const initializers = [
-        AddReducers,
-        handleDualChannelCompleteTask,
-        handleDualChannelHangupCall,
-        //PauseRecordingButton,
-        //PauseStatusPanel,
-        addPauseStatusPanel,
-        addPauseRecordingButton,
-        //PauseRecordingSlice,
-        PauseRecordingNotifications,
-        CustomizePasteElements,
-        DualChannelRecordingNotifications,
-        //Events
+      AddReducers,
+      handleDualChannelCompleteTask,
+      handleDualChannelHangupCall,
+      //PauseRecordingButton,
+      //PauseStatusPanel,
+      addPauseStatusPanel,
+      addPauseRecordingButton,
+      //PauseRecordingSlice,
+      PauseRecordingNotifications,
+      CustomizePasteElements,
+      DualChannelRecordingNotifications,
+      //Events
     ];
 
     initializers.forEach((initializer) => initializer(flex, manager));

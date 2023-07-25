@@ -1,4 +1,3 @@
-
 //const { enabled = false, channel } = getFeatureFlags()?.features?.dual_channel_recording || {};
 const enabled = true;
 const channel = 'customer';

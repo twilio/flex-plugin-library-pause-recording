@@ -3,7 +3,7 @@ import * as Flex from '@twilio/flex-ui';
 import { addPauseRecordingButton } from '../CallCanvasActions';
 
 describe('CallCanvas', () => {
-  let flex: typeof Flex = Flex;
+  const flex: typeof Flex = Flex;
   const addContentSpy = jest.spyOn(Flex.CallCanvasActions.Content, 'add');
 
   it('adds ConferenceMonitor and Conference Dialog to call canvas', () => {

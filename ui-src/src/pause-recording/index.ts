@@ -1,4 +1,3 @@
-
 //const { enabled = false, indicator_permanent = false, indicator_banner = false, include_silence = false } = getFeatureFlags()?.features?.pause_recording || {};
 const enabled = true;
 const indicator_permanent = true;
