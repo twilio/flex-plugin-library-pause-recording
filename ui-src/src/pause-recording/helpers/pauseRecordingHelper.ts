@@ -5,7 +5,7 @@ import { AppState, reduxNamespace } from '../flex-hooks/states/PauseRecordingSli
 import { pause, resume } from '../flex-hooks/states/PauseRecordingSlice';
 import { isBannerIndicatorEnabled, isIncludeSilenceEnabled } from '..';
 import { isFeatureEnabled as isDualChannelEnabled } from '../../dual-channel-recording';
-import Analytics, { Event } from '../../utils/Analytics';
+import { Analytics, Event } from '../../utils/Analytics';
 
 const manager = Manager.getInstance();
 
