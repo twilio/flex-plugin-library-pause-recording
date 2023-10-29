@@ -3,40 +3,38 @@ jest.mock('../../functions/helpers/prepare-function.private.js', () => ({
   __esModule: true,
   prepareFlexFunction: (_, fn) => fn,
 }));
+jest.mock('@twilio/flex-plugins-library-utils', () => ({
+  __esModule: true,
+  ProgrammableVoiceUtils: jest.fn(),
+}));
 
-const getVoiceMockTwilioClient = function (createRecording) {
-  const mockVoiceService = {
-    recordings: {create: createRecording},
-  };
-  return {
-    calls: (_callSid) => mockVoiceService,
-  };
-};
+import { ProgrammableVoiceUtils } from '@twilio/flex-plugins-library-utils';
 
 const mockCallSid = 'CSxxxxx';
 describe('Create Recording', () => {
-  const createParticipant = jest.fn(() =>
-    Promise.resolve({}),
-  );
-
   beforeAll(() => {
     helpers.setup();
     global.Runtime._addFunction('helpers/prepare-function', './functions/helpers/prepare-function.private.js');
-    global.Runtime._addFunction('helpers/parameter-validator', './functions/helpers/parameter-validator.private.js');
     global.Runtime._addFunction('twilio-wrappers/programmable-voice','./functions/twilio-wrappers/programmable-voice.private.js',);
-    global.Runtime._addFunction(
-      'twilio-wrappers/retry-handler',
-      './functions/twilio-wrappers/retry-handler.private.js',
-    );
-
   });
 
   it('create recording is called successfully ', async () => {
+    ProgrammableVoiceUtils.mockImplementation((value) => {
+      return {
+        createRecording: jest.fn(() =>
+          Promise.resolve({
+            status: 200,
+            recording: {},
+            success: true,
+          }),
+        ),
+      };
+    });
     const createRecording = require('../../functions/dual-channel-recording/create-recording');
     const handlerFn = createRecording.handler;
     const mockContext = {
       PATH: 'mockPath',
-      getTwilioClient: () => getVoiceMockTwilioClient(createParticipant),
+      getTwilioClient: () => () => jest.fn(),
     };
     const mockEvent = {
       callSid: 'CSxxxxx',

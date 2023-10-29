@@ -5,44 +5,39 @@ jest.mock('../../functions/helpers/prepare-function.private.js', () => ({
   prepareFlexFunction: (_, fn) => fn,
 }));
 
-const getVoiceMockTwilioClient = function (createRecording) {
-  const mockVoiceService = {
-    recordings: (_recordingSid) => mockFunctionTemp,  
-  };
-  const mockFunctionTemp = {
-    update: (_params) => createRecording,  
-  }
-  return {
-    conferences: (_conferenceSid) => mockVoiceService,
-  };
-};
+jest.mock('@twilio/flex-plugins-library-utils', () => ({
+  __esModule: true,
+  ProgrammableVoiceUtils: jest.fn(),
+}));
+
+import { ProgrammableVoiceUtils } from '@twilio/flex-plugins-library-utils';
 
 const mockConferenceSid = 'CSxxxxx';
 describe('Create Recording', () => {
-
-  const createParticipant = jest.fn(() =>
-    Promise.resolve({
-      conferenceSid: mockConferenceSid,
-    }),
-  );
-
   beforeAll(() => {
     helpers.setup();
     global.Runtime._addFunction('helpers/prepare-function', './functions/helpers/prepare-function.private.js');
-    global.Runtime._addFunction('helpers/parameter-validator', './functions/helpers/parameter-validator.private.js');
-    global.Runtime._addFunction('twilio-wrappers/programmable-voice','./functions/twilio-wrappers/programmable-voice.private.js',);
     global.Runtime._addFunction(
-      'twilio-wrappers/retry-handler',
-      './functions/twilio-wrappers/retry-handler.private.js',
+      'twilio-wrappers/programmable-voice',
+      './functions/twilio-wrappers/programmable-voice.private.js',
     );
-
   });
   it('create recording is called successfully ', async () => {
+    ProgrammableVoiceUtils.mockImplementation((value) => {
+      return {
+        updateConferenceRecording: jest.fn(() =>
+          Promise.resolve({
+            status: 200,
+            recording: {},
+            success: true,
+          }),
+        ),
+      };
+    });
     const createRecording = require('../../functions/pause-recording/pause-conference-recording');
     const handlerFn = createRecording.handler;
     const mockContext = {
-      PATH: 'mockPath',
-      getTwilioClient: () => getVoiceMockTwilioClient(createParticipant),
+      getTwilioClient: () => () => jest.fn(),
     };
     const mockEvent = {
       conferenceSid: '1672673',
@@ -60,7 +55,6 @@ describe('Create Recording', () => {
     };
     await handlerFn(mockContext, mockEvent, mockCallbackObject, mockResponse, mockErrorObject);
   });
-
 
   it('addParticipant error handler is called', async () => {
     const AddParticipant = require('../../functions/pause-recording/pause-conference-recording');

@@ -4,49 +4,30 @@ jest.mock('../../functions/helpers/prepare-function.private.js', () => ({
   __esModule: true,
   prepareFlexFunction: (_, fn) => fn,
 }));
+jest.mock('@twilio/flex-plugins-library-utils', () => ({
+  __esModule: true,
+  ProgrammableVoiceUtils: jest.fn(),
+}));
 
-const getVoiceMockTwilioClient = function (createRecording) {
-  const mockVoiceService = {
-    recordings: (_recordingSid) => mockFunctionTemp,  
-  };
-  const mockFunctionTemp = {
-    update: (_params) => createRecording,  
-  }
-  return {
-    calls: (_callSid) => mockVoiceService,
-  };
-};
-
+import { ProgrammableVoiceUtils } from '@twilio/flex-plugins-library-utils';
 
 const mockCallSid = 'CSxxxxx';
 const mockRecordingSid = '123456';
 describe('Create Recording', () => {
-  const createParticipant = jest.fn(() =>
-    Promise.resolve({
-      callSid: mockCallSid,
-      recordingSid: mockRecordingSid,
-    }),
-  );
-
   beforeAll(() => {
     helpers.setup();
     global.Runtime._addFunction('helpers/prepare-function', './functions/helpers/prepare-function.private.js');
-    global.Runtime._addFunction('helpers/parameter-validator', './functions/helpers/parameter-validator.private.js');
-    global.Runtime._addFunction('twilio-wrappers/programmable-voice','./functions/twilio-wrappers/programmable-voice.private.js',);
     global.Runtime._addFunction(
-      'twilio-wrappers/retry-handler',
-      './functions/twilio-wrappers/retry-handler.private.js',
+      'twilio-wrappers/programmable-voice',
+      './functions/twilio-wrappers/programmable-voice.private.js',
     );
-
   });
-
 
   it('create recording is called successfully ', async () => {
     const createRecording = require('../../functions/pause-recording/resume-call-recording');
     const handlerFn = createRecording.handler;
     const mockContext = {
-      PATH: 'mockPath',
-      getTwilioClient: () => getVoiceMockTwilioClient(createParticipant),
+      getTwilioClient: () => () => jest.fn(),
     };
     const mockEvent = {
       callSid: 'CSxxxxx',
@@ -65,6 +46,17 @@ describe('Create Recording', () => {
   });
 
   it('addParticipant error handler is called', async () => {
+    ProgrammableVoiceUtils.mockImplementation((value) => {
+      return {
+        updateCallRecording: jest.fn(() =>
+          Promise.resolve({
+            status: 200,
+            recording: {},
+            success: true,
+          }),
+        ),
+      };
+    });
     const AddParticipant = require('../../functions/pause-recording/resume-call-recording');
     const handlerFn = AddParticipant.handler;
     const mockEvent = {

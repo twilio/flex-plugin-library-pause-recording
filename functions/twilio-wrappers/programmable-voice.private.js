@@ -1,6 +1,4 @@
-const { isString, isObject } = require('lodash');
-
-const retryHandler = require(Runtime.getFunctions()['twilio-wrappers/retry-handler'].path).retryHandler;
+import { ProgrammableVoiceUtils } from '@twilio/flex-plugins-library-utils';
 
 /**
  * @param {object} parameters the parameters for the function
@@ -14,17 +12,23 @@ const retryHandler = require(Runtime.getFunctions()['twilio-wrappers/retry-handl
 exports.createRecording = async (parameters) => {
   const { context, callSid, params } = parameters;
 
-  if (!isObject(context))
-    throw "Invalid parameters object passed. Parameters must contain reason context object";
-  if (!isString(callSid))
-    throw "Invalid parameters object passed. Parameters must contain callSid string";
+  const config = {
+    attempts: 3,
+    callSid,
+    params,
+  };
+
+  const client = context.getTwilioClient();
+  const voiceClient = new ProgrammableVoiceUtils(client, config);
 
   try {
-    const client = context.getTwilioClient();
-    const recording = await client.calls(callSid).recordings.create(params);
-    return { success: true, recording, status: 200 };
+    const recording = await voiceClient.createRecording(config);
+
+    return {
+      ...recording,
+    };
   } catch (error) {
-    return retryHandler(error, parameters, arguments.callee);
+    return { success: false, status: error.status, message: error.message };
   }
 };
 
@@ -40,26 +44,25 @@ exports.createRecording = async (parameters) => {
  */
 exports.updateCallRecording = async (parameters) => {
   const { context, callSid, recordingSid, params } = parameters;
-  if (!isObject(context))
-    throw "Invalid parameters object passed. Parameters must contain reason context object";
-  if (!isString(callSid))
-    throw "Invalid parameters object passed. Parameters must contain callSid string";
-  if (!isString(recordingSid))
-    throw "Invalid parameters object passed. Parameters must contain recordingSid string";
-  if (!isObject(params))
-    throw "Invalid parameters object passed. Parameters must contain params object";
+
+  const config = {
+    attempts: 3,
+    callSid,
+    recordingSid,
+    params,
+  };
+
+  const client = context.getTwilioClient();
+  const voiceClient = new ProgrammableVoiceUtils(client, config);
 
   try {
-    console.log("Mark 1");
-    const client = context.getTwilioClient();
-    const recording = await client.calls(callSid).recordings(recordingSid).update(params);
+    const recording = await voiceClient.updateCallRecording(config);
 
-    //const recording = await client.calls(callSid).recordings(recordingSid).update(params);
-    
-    console.log(recording);
-    return { success: true, recording, status: 200 };
+    return {
+      ...recording,
+    };
   } catch (error) {
-    return retryHandler(error, parameters, arguments.callee);
+    return { success: false, status: error.status, message: error.message };
   }
 };
 
@@ -76,22 +79,23 @@ exports.updateCallRecording = async (parameters) => {
 exports.updateConferenceRecording = async (parameters) => {
   const { context, conferenceSid, recordingSid, params } = parameters;
 
-  if (!isObject(context))
-    throw "Invalid parameters object passed. Parameters must contain reason context object";
-  if (!isString(conferenceSid))
-    throw "Invalid parameters object passed. Parameters must contain conferenceSid string";
-  if (!isString(recordingSid))
-    throw "Invalid parameters object passed. Parameters must contain recordingSid string";
-  if (!isObject(params))
-    throw "Invalid parameters object passed. Parameters must contain params object";
+  const config = {
+    attempts: 3,
+    conferenceSid,
+    recordingSid,
+    params,
+  };
+
+  const client = context.getTwilioClient();
+  const voiceClient = new ProgrammableVoiceUtils(client, config);
 
   try {
-    const client = context.getTwilioClient();
+    const recording = await voiceClient.updateConferenceRecording(config);
 
-    const recording = await client.conferences(conferenceSid).recordings(recordingSid).update(params);
-
-    return { success: true, recording, status: 200 };
+    return {
+      ...recording,
+    };
   } catch (error) {
-    return retryHandler(error, parameters, arguments.callee);
+    return { success: false, status: error.status, message: error.message };
   }
 };
