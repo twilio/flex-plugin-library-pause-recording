@@ -1,4 +1,4 @@
-import { ProgrammableVoiceUtils } from '@twilio/flex-plugins-library-utils';
+const { ProgrammableVoiceUtils } = require('@twilio/flex-plugins-library-utils');
 
 /**
  * @param {object} parameters the parameters for the function
