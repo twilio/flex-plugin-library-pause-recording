@@ -24,24 +24,18 @@ This repository is a Flex plugin with some other assets. The following describin
 
 Make sure you have [Node.js](https://nodejs.org) as well as [`npm`](https://npmjs.com) installed.
 
-Afterwards, install the dependencies by running `npm install`:
+Afterwards, install the dependencies by running `npm install` at both 'root` and `ui-src` directory of the project:
 
 ```bash
+cd
+
 # If you use npm
 npm install
 ```
 
 ### Development
 
-In order to develop locally, you need to configure appconfig to do that.
-
-```bash
-cp ui-src/public/appConfig.example.js ui-src/public/appConfig.js
-```
-
-Add the environment and your account to setup appconfi.
-
-After that you can use the Twilio CLI to run the plugin locally. Using your commandline run the following from the root dirctory of the plugin.
+In order to develop locally, you can use the Twilio CLI to run the plugin locally. Using your commandline run the following from the root dirctory of the plugin.
 
 ```bash
 twilio flex:plugins:start
@@ -50,6 +44,43 @@ twilio flex:plugins:start
 This will automatically start up the Webpack Dev Server and open the browser for you. Your app will run on `http://localhost:3000`.
 
 When you make changes to your code, the browser window will be automatically refreshed.
+
+### Deploy
+
+#### Plugin Deployment
+
+Once you are happy with your plugin, you have to deploy then release the plugin for it to take affect on Twilio hosted Flex.
+
+Rename `.env.example` at root of the project to `.env` , And fill the values as shown below:
+
+```
+TWILIO_WORKSPACE_SID==<YOUR_WORKSPACE_SID>
+```
+
+Once the .env values are set, Start serverless deployment with below command at `root` of your project:
+
+```bash
+twilio serverless:deploy
+```
+Rename `.env.example` inside `ui-src` folder to `.env`.
+If the serverless deployment was successful, you must see the Domain url which ends with `.twil.io`.
+Copy the entire domain url and add that inside `.env` file of `ui-src` folder.
+
+```
+FLEX_APP_SERVERLESS_FUNCTONS_DOMAIN=<DOMAIN_URL>
+```
+
+Run the following command on `ui-src` folder to start the deployment:
+
+```bash
+twilio flex:plugins:deploy --major --changelog "Notes for this version" --description "Functionality of the plugin"
+```
+
+After your deployment runs you will receive instructions for releasing your plugin from the bash prompt. You can use this or skip this step and release your plugin from the Flex plugin dashboard here https://flex.twilio.com/admin/plugins
+
+For more details on deploying your plugin, refer to the [deploying your plugin guide](https://www.twilio.com/docs/flex/plugins#deploying-your-plugin).
+
+Note: Common packages like `React`, `ReactDOM`, `Redux` and `ReactRedux` are not bundled with the build because they are treated as external dependencies so the plugin will depend on Flex to provide them globally.
 
 ## Twilio Serverless
 
@@ -60,6 +91,7 @@ You will need the [Twilio CLI](https://www.twilio.com/docs/twilio-cli/quickstart
 and then
 
 `twilio plugins:install @twilio-labs/plugin-serverless`
+
 
 # How to use
 
