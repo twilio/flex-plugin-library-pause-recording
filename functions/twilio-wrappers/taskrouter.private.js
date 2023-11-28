@@ -13,11 +13,16 @@ const { TaskRouterUtils } = require('@twilio/flex-plugins-library-utils');
  */
 exports.updateTaskAttributes = async function updateTaskAttributes(parameters) {
   const { context, attempts, taskSid, attributesUpdate } = parameters;
-  // const region = context.TWILIO_REGION ? context.TWILIO_REGION.split('-')[0] : '';
+
+  const region = context.TWILIO_REGION ? context.TWILIO_REGION.split('-')[0] : '';
   const config = {
     attempts: attempts || 3,
     taskSid,
     attributesUpdate,
+    workspaceSid: context.TWILIO_FLEX_WORKSPACE_SID,
+    accountSid: context.ACCOUNT_SID,
+    authToken: context.AUTH_TOKEN,
+    region,
   };
 
   const client = context.getTwilioClient();
