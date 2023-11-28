@@ -1,11 +1,7 @@
-const { prepareFlexFunction } = require(Runtime.getFunctions()["helpers/prepare-function"].path);
-const VoiceOperations = require(Runtime.getFunctions()[
-  "twilio-wrappers/programmable-voice"
-].path);
+const { prepareFlexFunction } = require(Runtime.getFunctions()['helpers/prepare-function'].path);
+const VoiceOperations = require(Runtime.getFunctions()['twilio-wrappers/programmable-voice'].path);
 
-const requiredParameters = [
-  { key: "conferenceSid", purpose: "unique ID of conference to pause recording" },
-];
+const requiredParameters = [{ key: 'conferenceSid', purpose: 'unique ID of conference to pause recording' }];
 
 exports.handler = prepareFlexFunction(requiredParameters, async (context, event, callback, response, handleError) => {
   try {
@@ -16,12 +12,12 @@ exports.handler = prepareFlexFunction(requiredParameters, async (context, event,
       recordingSid: recordingSid ?? 'Twilio.CURRENT',
       params: {
         status: 'paused',
-        pauseBehavior: pauseBehavior ?? 'silence'
+        pauseBehavior: pauseBehavior ?? 'silence',
       },
       attempts: 0,
     });
     const { success, recording, status } = result;
-    
+
     response.setStatusCode(status);
     response.setBody({ success, recording });
     callback(null, response);

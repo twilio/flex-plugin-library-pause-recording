@@ -1,106 +1,95 @@
-import helpers from '../test-utils/test-helper';
+jest.mock('@twilio/flex-plugins-library-utils', () => ({
+  __esModule: true,
+  ProgrammableVoiceUtils: jest.fn(),
+}));
+
+import { ProgrammableVoiceUtils } from '@twilio/flex-plugins-library-utils';
+
 const callSid = 'CSxxxxxxx';
 const recordingSid = '123456';
 const conferenceSid = '123';
-describe('create recording ', () => {
-  beforeAll(() => {
-    helpers.setup();
-    global.Runtime._addFunction(
-      'twilio-wrappers/retry-handler',
-      './functions/twilio-wrappers/retry-handler.private.js',
-    );
+describe('createRecording tests from ProgrammableVoice', () => {
+  afterEach(() => {
+    jest.clearAllMocks();
   });
-
-  const getVoiceMockTwilioClient = function (createRecording) {
-    const mockVoiceService = {
-      recordings: {create: createRecording},
-    };
-    return {
-      calls: (_callSid) => mockVoiceService,
-    };
-  };
-  const createRecordingmock = jest.fn(() => Promise.resolve());
-
   it('createRecording returns success response', async () => {
+    ProgrammableVoiceUtils.mockImplementation((value) => {
+      return {
+        createRecording: jest.fn(() =>
+          Promise.resolve({
+            status: 200,
+            recording: {},
+            success: true,
+          }),
+        ),
+      };
+    });
     const { createRecording } = require('../../functions/twilio-wrappers/programmable-voice.private');
     const parameters = {
       callSid,
       params: {
-        recordingChannels: 'dual'
+        recordingChannels: 'dual',
       },
     };
     const context = {
-      getTwilioClient: () => getVoiceMockTwilioClient(createRecordingmock),
+      getTwilioClient: () => () => jest.fn(),
     };
-    const participant = await createRecording({ context, ...parameters });
-    expect(participant.success).toEqual(true);
-    expect(createRecordingmock.mock.calls.length).toBe(1);
+    const recording = await createRecording({ context, ...parameters });
+    expect(recording).toEqual({
+      success: true,
+      status: 200,
+      recording: {},
+    });
   });
 
-  it('createRecording throws invalid parameters object passed', async () => {
+  it('createRecording returns error response', async () => {
+    ProgrammableVoiceUtils.mockImplementation((value) => {
+      return {
+        createRecording: jest.fn(() =>
+          Promise.reject({
+            success: false,
+            status: 400,
+            message: 'Mock Error Message',
+          }),
+        ),
+      };
+    });
     const { createRecording } = require('../../functions/twilio-wrappers/programmable-voice.private');
     const parameters = {
       callSid,
       params: {
-        recordingChannels: 'dual'
+        recordingChannels: 'dual',
       },
     };
 
-    let err = null;
-    try {
-      await createRecording({ ...parameters });
-    } catch (error) {
-      err = error;
-    }
-
-    expect(err).toBe('Invalid parameters object passed. Parameters must contain reason context object');
-  });
-
-  it('createRecording throws invalid parameters object passed', async () => {
-    const { createRecording } = require('../../functions/twilio-wrappers/programmable-voice.private');
-    const parameters = {
-      callSid: 1,
-      params: {
-        recordingChannels: 'dual'
-      },
-    };
     const context = {
-      getTwilioClient: () => getVoiceMockTwilioClient(createRecordingmock),
+      getTwilioClient: () => () => jest.fn(),
     };
-
-    let err = null;
-    try {
-      await createRecording({ context, ...parameters });
-    } catch (error) {
-      err = error;
-    }
-
-    expect(err).toBe('Invalid parameters object passed. Parameters must contain callSid string');
+    const errRecording = await createRecording({ context, ...parameters });
+    expect(errRecording).toEqual({
+      success: false,
+      status: 400,
+      message: 'Mock Error Message',
+    });
   });
 });
-/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-describe('update callRecording', () => {
-  beforeAll(() => {
-    helpers.setup();
-    global.Runtime._addFunction(
-      'twilio-wrappers/retry-handler',
-      './functions/twilio-wrappers/retry-handler.private.js',
-    );
-  });
 
-  const getVoiceMockTwilioClient2 = function (createRecording) {
-    const mockVoiceService = {
-      recordings: (_recordingSid) => mockFunctionTemp,  
-    };
-    const mockFunctionTemp = {
-      update: (_params) => createRecording,  
-    }
-    return {
-      calls: (_callSid) => mockVoiceService,
-    };
-  };
-  const updateCallRecordingmock2 = jest.fn(() => Promise.resolve());
+describe('updateCallRecording tests from ProgrammableVoice ', () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
   it('updateCallRecording returns success response', async () => {
+    ProgrammableVoiceUtils.mockImplementation((value) => {
+      return {
+        updateCallRecording: jest.fn(() =>
+          Promise.resolve({
+            status: 200,
+            recording: {},
+            success: true,
+          }),
+        ),
+      };
+    });
     const { updateCallRecording } = require('../../functions/twilio-wrappers/programmable-voice.private');
     const parameters = {
       callSid,
@@ -111,151 +100,113 @@ describe('update callRecording', () => {
       },
     };
     const context = {
-      getTwilioClient: () => getVoiceMockTwilioClient2(updateCallRecordingmock2),
+      getTwilioClient: () => () => jest.fn(),
     };
 
-    const participant = await updateCallRecording({ context, ...parameters });
-    expect(participant.success).toEqual(true);
-   // expect(updateCallRecordingmock.mock.calls.length).toBe(1);
+    const recording = await updateCallRecording({ context, ...parameters });
+    expect(recording).toEqual({
+      success: true,
+      status: 200,
+      recording: {},
+    });
   });
 
-  it('createRecording throws invalid parameters object passed', async () => {
+  it('updateCallRecording returns error response', async () => {
+    ProgrammableVoiceUtils.mockImplementation((value) => {
+      return {
+        updateCallRecording: jest.fn(() =>
+          Promise.reject({
+            success: false,
+            status: 400,
+            message: 'Mock Error Message',
+          }),
+        ),
+      };
+    });
     const { updateCallRecording } = require('../../functions/twilio-wrappers/programmable-voice.private');
     const parameters = {
       callSid,
     };
 
-    let err = null;
-    try {
-      await updateCallRecording({ ...parameters });
-    } catch (error) {
-      err = error;
-    }
-
-    expect(err).toBe('Invalid parameters object passed. Parameters must contain reason context object');
-  });
-
-  it('updateCallRecording throws invalid parameters object passed', async () => {
-    const { updateCallRecording } = require('../../functions/twilio-wrappers/programmable-voice.private');
-    const parameters = {
-      callSid: 1,
-    };
     const context = {
-      getTwilioClient: () => getVoiceMockTwilioClient(updateCallRecordingmock),
+      getTwilioClient: () => () => jest.fn(),
     };
-
-    let err = null;
-    try {
-      await updateCallRecording({ context, ...parameters });
-    } catch (error) {
-      err = error;
-    }
-
-    expect(err).toBe('Invalid parameters object passed. Parameters must contain callSid string');
+    const errRecording = await updateCallRecording({ context, ...parameters });
+    expect(errRecording).toEqual({
+      success: false,
+      status: 400,
+      message: 'Mock Error Message',
+    });
   });
-
 });
-/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-describe('updateConferenceRecording', () => {
-  beforeAll(() => {
-    helpers.setup();
-    global.Runtime._addFunction(
-      'twilio-wrappers/retry-handler',
-      './functions/twilio-wrappers/retry-handler.private.js',
-    );
-  });
 
-  const getVoiceMockTwilioClient3 = function (createRecording) {
-    const mockVoiceService = {
-      recordings: (_recordingSid) => mockFunctionTemp,  
-    };
-    const mockFunctionTemp = {
-      update: (_params) => createRecording,  
-    }
-    return {
-      conferences: (_conferenceSid) => mockVoiceService,
-    };
-  };
-  const updateConferenceRecordingmock = jest.fn(() => Promise.resolve());
+describe('updateConferenceRecording tests from ProgrammableVoice ', () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
   it('updateConferenceRecording returns success response', async () => {
+    ProgrammableVoiceUtils.mockImplementation((value) => {
+      return {
+        updateConferenceRecording: jest.fn(() =>
+          Promise.resolve({
+            status: 200,
+            recording: {},
+            success: true,
+          }),
+        ),
+      };
+    });
     const { updateConferenceRecording } = require('../../functions/twilio-wrappers/programmable-voice.private');
     const parameters = {
       conferenceSid,
       recordingSid,
       params: {
         status: 'paused',
-        pauseBehavior: 'silence'
+        pauseBehavior: 'silence',
       },
     };
     const context = {
-      getTwilioClient: () => getVoiceMockTwilioClient3(updateConferenceRecordingmock),
+      getTwilioClient: () => () => jest.fn(),
     };
 
-    const participant = await updateConferenceRecording({ context, ...parameters });
-
-    expect(participant.success).toEqual(true);
+    const recording = await updateConferenceRecording({ context, ...parameters });
+    expect(recording).toEqual({
+      success: true,
+      status: 200,
+      recording: {},
+    });
   });
 
-  it('updateConferenceRecording throws invalid parameters object passed', async () => {
+  it('updateConferenceRecording returns error response', async () => {
+    ProgrammableVoiceUtils.mockImplementation((value) => {
+      return {
+        updateConferenceRecording: jest.fn(() =>
+          Promise.reject({
+            success: false,
+            status: 400,
+            message: 'Mock Error Message',
+          }),
+        ),
+      };
+    });
     const { updateConferenceRecording } = require('../../functions/twilio-wrappers/programmable-voice.private');
     const parameters = {
       conferenceSid,
       recordingSid,
       params: {
         status: 'paused',
-        pauseBehavior: 'silence'
+        pauseBehavior: 'silence',
       },
     };
 
-    let err = null;
-    try {
-      await updateConferenceRecording({ ...parameters });
-    } catch (error) {
-      err = error;
-    }
-
-    expect(err).toBe('Invalid parameters object passed. Parameters must contain reason context object');
-  });
-
-  it('updateConferenceRecording throws invalid parameters object passed', async () => {
-    const { updateConferenceRecording } = require('../../functions/twilio-wrappers/programmable-voice.private');
-    const parameters = {
-      conferenceSid: 1,
-      recordingSid: '1',
-    };
     const context = {
-      getTwilioClient: () => getVoiceMockTwilioClient3(updateConferenceRecordingmock),
+      getTwilioClient: () => () => jest.fn(),
     };
-
-    let err = null;
-    try {
-      await updateConferenceRecording({ context, ...parameters });
-    } catch (error) {
-      err = error;
-    }
-
-    expect(err).toBe('Invalid parameters object passed. Parameters must contain conferenceSid string');
+    const errRecording = await updateConferenceRecording({ context, ...parameters });
+    expect(errRecording).toEqual({
+      success: false,
+      status: 400,
+      message: 'Mock Error Message',
+    });
   });
-
-  it('updateConferenceRecording throws invalid parameters object passed', async () => {
-    const { updateConferenceRecording } = require('../../functions/twilio-wrappers/programmable-voice.private');
-    const parameters = {
-      conferenceSid: '1',
-      recordingSid: 1,
-    };
-    const context = {
-      getTwilioClient: () => getVoiceMockTwilioClient3(updateConferenceRecordingmock),
-    };
-
-    let err = null;
-    try {
-      await updateConferenceRecording({ context, ...parameters });
-    } catch (error) {
-      err = error;
-    }
-
-    expect(err).toBe('Invalid parameters object passed. Parameters must contain recordingSid string');
-  });
-  
-
 });

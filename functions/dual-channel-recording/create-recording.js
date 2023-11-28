@@ -1,9 +1,7 @@
-const { prepareFlexFunction } = require(Runtime.getFunctions()["helpers/prepare-function"].path);
-const VoiceOperations = require(Runtime.getFunctions()["twilio-wrappers/programmable-voice"].path);
+const { prepareFlexFunction } = require(Runtime.getFunctions()['helpers/prepare-function'].path);
+const VoiceOperations = require(Runtime.getFunctions()['twilio-wrappers/programmable-voice'].path);
 
-const requiredParameters = [
-  { key: "callSid", purpose: "unique ID of call to record" },
-];
+const requiredParameters = [{ key: 'callSid', purpose: 'unique ID of call to record' }];
 
 exports.handler = prepareFlexFunction(requiredParameters, async (context, event, callback, response, handleError) => {
   try {
@@ -12,7 +10,7 @@ exports.handler = prepareFlexFunction(requiredParameters, async (context, event,
       context,
       callSid,
       params: {
-        recordingChannels: 'dual'
+        recordingChannels: 'dual',
       },
       attempts: 0,
     });
