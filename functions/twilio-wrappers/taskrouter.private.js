@@ -19,7 +19,7 @@ exports.updateTaskAttributes = async function updateTaskAttributes(parameters) {
     attempts: attempts || 3,
     taskSid,
     attributesUpdate,
-    workspaceSid: context.TWILIO_FLEX_WORKSPACE_SID,
+    flexWorkSpaceSid: context.TWILIO_FLEX_WORKSPACE_SID,
     accountSid: context.ACCOUNT_SID,
     authToken: context.AUTH_TOKEN,
     region,
