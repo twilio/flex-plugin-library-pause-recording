@@ -17,7 +17,7 @@
     "@twilio-labs/serverless-api": "^5.5.0",
     "@twilio/flex-plugins-library-utils": "1.1.0",
     "lodash": "^4.17.21",
-    "twilio": "^4.0.0",
+    "twilio": "^4.7.0",
     "twilio-flex-token-validator": "^1.5.8"
   },
   "devDependencies": {
@@ -35,7 +35,7 @@
     "jest": "^26.0.20",
     "jest-fetch-mock": "3.0.3",
     "jest-junit": "12.0.0",
-    "twilio": "4.0.0",
+    "twilio": "4.7.0",
     "twilio-cli": "5.2.1",
     "twilio-run": "3.4.2",
     "@typescript-eslint/eslint-plugin": "^5.52.0",
